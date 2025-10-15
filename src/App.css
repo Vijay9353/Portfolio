@@ -6,6 +6,11 @@
   text-align: initial;
 }
 
+@keyframes menuDrop {
+  0% { opacity: 0; transform: scale(0.98) translateY(-6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 /* Prevent horizontal scrollbar globally */
 html, body {
   width: 100%;
@@ -25,6 +30,31 @@ html, body {
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Hide hamburger by default (desktop). It is shown in mobile media query */
+.nav-toggle { display: none; }
+.hamburger {
+  display: none;
+  width: 40px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 6px;
+  transition: background 0.2s ease;
+  z-index: 25; /* above dropdown */
+}
+.hamburger:hover { background: rgba(255,255,255,0.08); }
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #e9eef7;
+  border-radius: 2px;
 }
 
 @keyframes logo-spin {
@@ -1069,3 +1099,199 @@ html, body {
   border-color: rgba(255, 255, 255, 0.08);
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+/* ---------------------------------------------------------
+   Responsive Utilities and Mobile Tweaks (Overrides)
+   Appended at end to avoid breaking existing layouts
+---------------------------------------------------------- */
+
+/* Media elements scale within containers */
+img, video { max-width: 100%; height: auto; }
+
+/* Floating Audio Button used in `Gallery.jsx` (.audio-fab) */
+.audio-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(11,18,32,0.65);
+  color: #e9eef7;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
+}
+.audio-fab:hover { transform: translateY(-2px); background: rgba(11,18,32,0.8); }
+
+/* Header/nav improvements on narrow screens */
+@media (max-width: 820px) {
+  .profile-header { padding: 0.35rem 0.75rem; }
+  .initials-logo { width: 38px; height: 38px; }
+}
+
+@media (max-width: 640px) {
+  .profile-header { gap: 0.5rem; }
+  .profile-nav {
+    gap: 0.25rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .profile-nav::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 480px) {
+  .initials-logo { width: 34px; height: 34px; }
+  .profile-nav a { font-size: 0.82rem; padding: 0.38rem 0.54rem; }
+}
+
+@media (max-width: 400px) {
+  .profile-nav a { font-size: 0.78rem; padding: 0.34rem 0.5rem; }
+}
+
+@media (max-width: 360px) {
+  .profile-nav a { font-size: 0.74rem; padding: 0.3rem 0.46rem; }
+}
+
+/* Projects: make preview shorter on very small screens for better fold fit */
+@media (max-width: 520px) {
+  .projects-grid { gap: 14px; }
+  .project-preview { height: 150px; }
+}
+
+@media (max-width: 380px) {
+  .project-preview { height: 136px; }
+}
+
+/* Skills: allow single column on ultra-small screens */
+@media (max-width: 420px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* Gallery: tighten gaps and caption sizing on small */
+@media (max-width: 520px) {
+  .gallery-grid { gap: 14px; }
+  .gallery-card-inner { height: 160px; }
+  .gallery-caption { font-size: 0.9rem; padding: 5px 8px; }
+}
+
+@media (max-width: 380px) {
+  .gallery-card-inner { height: 140px; }
+}
+
+/* Contact: side padding and grid spacing on mobile */
+@media (max-width: 640px) {
+  .contact-page { padding: 0 0.75rem 2rem; }
+  .contact-grid { gap: 14px; }
+  .contact-title { font-size: 1.6rem; }
+}
+
+/* About: reduce margins and image size slightly on narrow phones */
+@media (max-width: 520px) {
+  .about-content { margin-top: 70px; padding: 1rem; }
+  .about-image { width: 170px; height: 170px; }
+}
+
+/* Mobile Hamburger Dropdown Navigation */
+@media (max-width: 768px) {
+  .profile-header {
+    position: sticky;
+    top: 0;
+    z-index: 60; /* ensure above other elements */
+    min-height: 56px; /* room for hamburger */
+    padding: calc(0.35rem + env(safe-area-inset-top, 0px)) 0.75rem 0.35rem; /* account for notches */
+    overflow: visible; /* avoid clipping dropdown/hamburger */
+  }
+  .nav-toggle { display: none; }
+
+  /* Hamburger icon */
+  .hamburger {
+    display: inline-flex;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;  /* slightly smaller to fit */
+    height: 36px; /* slightly smaller to fit */
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+    z-index: 65; /* above header */
+  }
+  .hamburger:hover { background: rgba(255,255,255,0.12); transform: translateY(calc(-50% - 1px)); }
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+    background: #e9eef7;
+    display: block;
+    border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+
+  /* Default: dropdown hidden */
+  .profile-header { position: relative; }
+  .profile-nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 10px;
+    left: auto;
+    min-width: 220px;
+    max-width: 80vw;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.5), 0 0 22px rgba(97,218,251,0.12) inset;
+    padding: 10px;
+    flex-direction: column;
+    gap: 6px;
+    transform-origin: top right;
+    animation: none;
+  }
+  .profile-nav::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 18px;
+    width: 14px;
+    height: 14px;
+    transform: rotate(45deg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255,255,255,0.14);
+    border-top: 1px solid rgba(255,255,255,0.14);
+  }
+  .profile-nav a {
+    display: block;
+    text-align: right;
+    padding: 10px 12px;
+    border-radius: 10px;
+    
+  }
+  .profile-nav a:last-child { margin-top: 4px; }
+
+  /* Toggle show */
+  .nav-toggle:checked + .hamburger + .profile-nav {
+    display: flex;
+    animation: menuDrop 180ms ease-out;
+    
+  }
+
+  /* Animate hamburger to X */
+  .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; }
+  .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}

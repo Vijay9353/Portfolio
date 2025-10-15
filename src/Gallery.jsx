@@ -111,6 +111,12 @@ const Gallery = () => {
         <div className="logo-left">
           <div className="initials-logo" aria-label="VG logo">{initials}</div>
         </div>
+        <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+        <label htmlFor="nav-toggle" className="hamburger" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
         <nav className="profile-nav">
           <Link to="/">HOME</Link>
           <Link to="/about">ABOUT</Link>
