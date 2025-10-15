@@ -32,6 +32,31 @@ html, body {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Hide hamburger by default (desktop). It is shown in mobile media query */
+.nav-toggle { display: none; }
+.hamburger {
+  display: none;
+  width: 40px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 6px;
+  transition: background 0.2s ease;
+  z-index: 25; /* above dropdown */
+}
+.hamburger:hover { background: rgba(255,255,255,0.08); }
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #e9eef7;
+  border-radius: 2px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -1175,25 +1200,37 @@ img, video { max-width: 100%; height: auto; }
 
 /* Mobile Hamburger Dropdown Navigation */
 @media (max-width: 768px) {
-  .profile-header { position: sticky; top: 0; z-index: 40; }
+  .profile-header {
+    position: sticky;
+    top: 0;
+    z-index: 60; /* ensure above other elements */
+    min-height: 56px; /* room for hamburger */
+    padding: calc(0.35rem + env(safe-area-inset-top, 0px)) 0.75rem 0.35rem; /* account for notches */
+    overflow: visible; /* avoid clipping dropdown/hamburger */
+  }
   .nav-toggle { display: none; }
 
   /* Hamburger icon */
   .hamburger {
     display: inline-flex;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    width: 42px;
-    height: 42px;
+    width: 36px;  /* slightly smaller to fit */
+    height: 36px; /* slightly smaller to fit */
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.12);
     background: rgba(255,255,255,0.06);
     cursor: pointer;
     transition: background 150ms ease, transform 150ms ease;
+    z-index: 65; /* above header */
   }
-  .hamburger:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+  .hamburger:hover { background: rgba(255,255,255,0.12); transform: translateY(calc(-50% - 1px)); }
   .hamburger span {
     width: 22px;
     height: 2px;
@@ -1242,6 +1279,7 @@ img, video { max-width: 100%; height: auto; }
     text-align: right;
     padding: 10px 12px;
     border-radius: 10px;
+    
   }
   .profile-nav a:last-child { margin-top: 4px; }
 
@@ -1249,6 +1287,7 @@ img, video { max-width: 100%; height: auto; }
   .nav-toggle:checked + .hamburger + .profile-nav {
     display: flex;
     animation: menuDrop 180ms ease-out;
+    
   }
 
   /* Animate hamburger to X */
