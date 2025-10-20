@@ -27,7 +27,7 @@ const Project = () => {
       name: 'Netflix GPT',
       preview: project2,
       stack: ['React', 'TMDB API', 'Firebase','jsx','Tailwind','Gemini API','Redux'],
-      demo: 'https://github.com/Vijay9353/netflix-GPT',
+      demo: '#',
       repo: 'https://github.com/Vijay9353/netflix-GPT',
     },
     {
