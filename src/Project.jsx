@@ -19,15 +19,15 @@ const Project = () => {
       name: 'Result Analysis System',
       preview: project1,
       stack: ['Html', 'Bootstrap', 'MySql','Php','js'],
-      demo: '#',
-      repo: '#',
+      demo: 'https://result-analysis-qozn.onrender.com',
+      repo: 'https://github.com/Vijay9353/Result_Analysis',
     },
     {
       key: 'netflix',
       name: 'Netflix GPT',
       preview: project2,
       stack: ['React', 'TMDB API', 'Firebase','jsx','Tailwind','Gemini API','Redux'],
-      demo: '#',
+      demo: 'https://github.com/Vijay9353/netflix-GPT',
       repo: 'https://github.com/Vijay9353/netflix-GPT',
     },
     {
@@ -51,8 +51,8 @@ const Project = () => {
       name: 'Portfolio',
       preview: project5,
       stack: ['Html', 'css', 'javascript','React','Redux'],
-      demo: '#',
-      repo: '#',
+      demo: 'https://portfolio-4qjb.onrender.com/',
+      repo: 'https://github.com/Vijay9353/Portfolio',
     },
   ]
 
